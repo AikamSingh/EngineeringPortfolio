@@ -412,18 +412,6 @@ nav {
   border-color: color-mix(in srgb, var(--accent-lt) 32%, var(--border));
 }
 
-/* Brand logo images */
-.skill-img {
-  width: 34px; height: 34px;
-  object-fit: contain;
-  flex-shrink: 0;
-  transition: transform .2s ease;
-}
-.skill-icon-card:hover .skill-img { transform: scale(1.1); }
-
-/* Unreal Engine logo is black — invert on dark backgrounds */
-.skill-icon-ue { filter: invert(1); }
-[data-theme="light"] .skill-icon-ue { filter: none; }
 
 /* Custom inline SVG icons */
 .skill-svg {
