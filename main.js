@@ -18,8 +18,25 @@ function updateThemeIcon(theme) {
   themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
 }
 
+// ── Cursor glow (pointer: fine only) ──────────────────────────
+if (window.matchMedia('(pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const glow = document.createElement('div');
+  glow.className = 'cursor-glow';
+  document.body.appendChild(glow);
+
+  let raf;
+  document.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      glow.style.setProperty('--cx', e.clientX + 'px');
+      glow.style.setProperty('--cy', e.clientY + 'px');
+    });
+  });
+}
+
 // ── Mobile nav ─────────────────────────────────────────────────
-const hamburger = document.getElementById('hamburger');
+const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 
 hamburger.addEventListener('click', () => {
@@ -37,9 +54,9 @@ mobileMenu.querySelectorAll('a').forEach(a => {
 
 // ── Active nav link on scroll ──────────────────────────────────
 const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const navLinks  = document.querySelectorAll('.nav-links a[href^="#"]');
 
-const observer = new IntersectionObserver(entries => {
+const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       navLinks.forEach(l => l.classList.remove('active'));
@@ -49,9 +66,9 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { rootMargin: '-40% 0px -55% 0px' });
 
-sections.forEach(s => observer.observe(s));
+sections.forEach(s => sectionObserver.observe(s));
 
-// ── Fade-in on scroll ──────────────────────────────────────────
+// ── Scroll fade-in ─────────────────────────────────────────────
 const fadeObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -59,13 +76,19 @@ const fadeObserver = new IntersectionObserver(entries => {
       fadeObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
 document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
-// ── Stagger fade-in for grid items ────────────────────────────
-document.querySelectorAll('.project-card, .timeline-item').forEach((el, i) => {
-  el.style.transitionDelay = `${i * 60}ms`;
+// ── Stagger project cards & skill category blocks ──────────────
+document.querySelectorAll('.project-card').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 80}ms`;
+  el.classList.add('fade-in');
+  fadeObserver.observe(el);
+});
+
+document.querySelectorAll('.skill-cat-block').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 70}ms`;
   el.classList.add('fade-in');
   fadeObserver.observe(el);
 });
@@ -76,7 +99,7 @@ document.querySelectorAll('.project-card, .timeline-item').forEach((el, i) => {
   const status = document.getElementById('form-status');
   if (!form || !status) return;
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const btn = form.querySelector('.form-submit');
@@ -95,15 +118,14 @@ document.querySelectorAll('.project-card, .timeline-item').forEach((el, i) => {
       if (!res.ok) throw new Error('Network error');
 
       form.reset();
-      status.textContent = 'Sent — I\'ll get back to you soon.';
+      status.textContent = "Sent — I'll get back to you soon.";
       status.className = 'form-status form-status--ok visible';
-      btn.textContent = 'Send Message →';
     } catch {
       status.textContent = 'Something went wrong. Please try again.';
       status.className = 'form-status form-status--err visible';
-      btn.textContent = 'Send Message →';
     } finally {
       btn.disabled = false;
+      btn.textContent = 'Send Message →';
     }
   });
 }());
