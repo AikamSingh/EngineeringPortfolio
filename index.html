@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aikam Singh — Computer Engineering</title>
+  <meta name="description" content="Portfolio of Aikam Singh — Computer Engineering student at the University of Michigan. Embedded systems, PCB design, and software engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Nav ───────────────────────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#home" class="nav-logo">Aikam<span>.</span></a>
+
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-theme" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+      <a href="assets/AikamSingh_Resume.pdf" download class="btn btn-primary" style="font-size:.8rem;padding:7px 14px;">Resume ↓</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#home">Home</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#resume">Resume</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-tag">Computer Engineering · University of Michigan</div>
+        <h1>
+          Hi, I'm<br>
+          <span class="name">Aikam Singh.</span>
+        </h1>
+        <p class="hero-desc">
+          I design embedded systems, PCBs, and firmware for real-world engineering challenges —
+          from solar car electronics to smartwatch hardware. I care about systems that have to work.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects →</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+        <div class="hero-links">
+          <a href="https://github.com/AikamSingh" target="_blank" rel="noopener" class="hero-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://linkedin.com/in/aikamsingh" target="_blank" rel="noopener" class="hero-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-photo">
+        <img src="assets/aikam_pfp.JPEG" alt="Aikam Singh" />
+        <div class="hero-photo-bg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ───────────────────────────────────────────────── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">Projects</p>
+      <h2>What I've Built</h2>
+      <p>End-to-end engineering projects — from requirements and hardware design through firmware, testing, and deployment in real-world conditions.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Solar Car Steering Wheel -->
+      <a href="projects/solar-car.html" class="project-card">
+        <div class="project-img">
+          <img src="assets/steering_wheel_on_car.JPG" alt="Solar Car Steering Wheel mounted in cockpit" loading="lazy" />
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="tag">Embedded Systems</span>
+            <span style="font-size:.8rem;color:var(--text-muted)">2025–Present</span>
+          </div>
+          <h3>Solar Car Steering Wheel</h3>
+          <p>Designed and manufactured a custom PCB integrating buttons, an OLED display, and CAN bus communication for the University of Michigan Solar Car's race-critical driver interface.</p>
+          <div class="project-footer">
+            <div class="project-chips">
+              <span class="chip">Altium</span>
+              <span class="chip">STM32</span>
+              <span class="chip">CAN bus</span>
+              <span class="chip">RTOS</span>
+            </div>
+            <span class="project-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Spotify Controller -->
+      <a href="projects/spotify.html" class="project-card">
+        <div class="project-img">
+          <div class="project-img-placeholder">🎵</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="tag tag-wip">In Progress</span>
+            <span style="font-size:.8rem;color:var(--text-muted)">2026</span>
+          </div>
+          <h3>Spotify Music Controller</h3>
+          <p>A physical hardware controller for Spotify — rotary encoder navigation, e-ink display for album art, and local API integration. Designed for a desk-side experience without touching a phone.</p>
+          <div class="project-footer">
+            <div class="project-chips">
+              <span class="chip">ESP32</span>
+              <span class="chip">C/C++</span>
+              <span class="chip">Spotify API</span>
+              <span class="chip">e-ink</span>
+            </div>
+            <span class="project-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Smartwatch -->
+      <a href="#" class="project-card">
+        <div class="project-img">
+          <div class="project-img-placeholder">⌚</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="tag">Embedded Systems</span>
+            <span style="font-size:.8rem;color:var(--text-muted)">Feb 2026–Present</span>
+          </div>
+          <h3>Smartwatch Firmware</h3>
+          <p>Developed RTOS-based firmware for a custom smartwatch on ESP32. Features step tracking with accelerometer, real-time stopwatch, and wireless connectivity over I2C peripherals.</p>
+          <div class="project-footer">
+            <div class="project-chips">
+              <span class="chip">ESP32</span>
+              <span class="chip">RTOS</span>
+              <span class="chip">I2C</span>
+              <span class="chip">C</span>
+            </div>
+            <span class="project-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ─────────────────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">Experience</p>
+      <h2>Where I've Worked</h2>
+      <p>Internships, research, and hands-on engineering roles — building real things under real constraints.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jul 2025 – Present</div>
+        <div class="timeline-content">
+          <h3>Microsystems Engineer</h3>
+          <div class="timeline-org">University of Michigan Solar Car Team</div>
+          <p style="font-size:.9rem;margin-bottom:0">Embedded systems and PCB design for a race-critical vehicle.</p>
+          <ul class="timeline-bullets">
+            <li>Drove solar car cross-country (Michigan → California) as 2026 Race Crew; maintained and repaired electrical systems under race conditions</li>
+            <li>Designed steering wheel PCB in Altium: buttons, OLED display, CAN bus; validated with oscilloscope and logic analyzer</li>
+            <li>Rewrote steering wheel firmware in C (STM32, RTOS) to improve reliability and CAN bus interface</li>
+            <li>Leading 2027 steering wheel redesign — transitioning OLED to LCD, adding column-detection sensor, improving ergonomics</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2026 – Present</div>
+        <div class="timeline-content">
+          <h3>Student Researcher</h3>
+          <div class="timeline-org">University of Michigan Transportation Institute</div>
+          <ul class="timeline-bullets">
+            <li>Modeling weather and environmental conditions to assess driver ability using Unreal Engine simulation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jun – Jul 2025</div>
+        <div class="timeline-content">
+          <h3>Business Intern</h3>
+          <div class="timeline-org">ProRata.ai — Pasadena, CA</div>
+          <ul class="timeline-bullets">
+            <li>Automated article ingestion from RSS feeds using Python, streamlined partnership workflows for 20+ content partners</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jun – Aug 2024</div>
+        <div class="timeline-content">
+          <h3>Software Engineering Intern</h3>
+          <div class="timeline-org">ProRata.ai — Pasadena, CA</div>
+          <ul class="timeline-bullets">
+            <li>Gathered, cleaned, and structured a 5.5B+ multimodal dataset for training fact-checking LLM models</li>
+            <li>Stress-tested LLM prototypes with ML engineers; documented hallucinations and bias issues that directly influenced model iteration</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Aug 2021 – Jul 2025</div>
+        <div class="timeline-content">
+          <h3>Team Co-Lead</h3>
+          <div class="timeline-org">Polytechnic High School Solar Car Team — Pasadena, CA</div>
+          <ul class="timeline-bullets">
+            <li>Co-led 15-person team; placed 2nd in 2023 and 2025 Texas Solar Car Challenge</li>
+            <li>Designed chassis CAD, manufactured Li-ion battery pack, built high-voltage systems, and performed carbon fiber aeroshell layup</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Resume ─────────────────────────────────────────────────── -->
+<section id="resume">
+  <div class="container">
+    <div class="resume-wrapper">
+      <div class="resume-info fade-in">
+        <p class="section-label">Resume</p>
+        <h2>Background at a Glance</h2>
+        <p>Computer Engineering student at the University of Michigan (GPA 3.9/4.0, Expected May 2029) with hands-on experience in embedded systems, PCB design, and firmware development.</p>
+        <ul class="resume-highlights">
+          <li>Altium PCB design — race-critical automotive electronics</li>
+          <li>Firmware in C (STM32, ESP32) with RTOS, CAN bus, I2C</li>
+          <li>5.5B+ token dataset pipeline for LLM training</li>
+          <li>2× Texas Solar Car Challenge podium finish</li>
+          <li>Tools: Altium, Fusion 360, Siemens NX, STM32Cube IDE, Python, MATLAB</li>
+        </ul>
+        <a href="assets/AikamSingh_Resume.pdf" download class="btn btn-primary">Download PDF ↓</a>
+      </div>
+
+      <div class="resume-card fade-in">
+        <div class="resume-card-icon">📄</div>
+        <h3>Aikam Singh</h3>
+        <p>Computer Engineering<br>University of Michigan<br>GPA 3.9 / 4.0 · Expected May 2029</p>
+        <a href="assets/AikamSingh_Resume.pdf" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:12px;">View Resume</a>
+        <a href="assets/AikamSingh_Resume.pdf" download class="btn btn-primary" style="width:100%;justify-content:center;">Download ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ──────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo fade-in">
+        <img src="assets/driving_solar_car.JPEG" alt="Aikam driving the solar car" />
+      </div>
+      <div class="about-text fade-in">
+        <p class="section-label">About</p>
+        <h2>Engineering is how I think.</h2>
+        <p>I'm a Computer Engineering student at the University of Michigan focused on embedded systems and hardware design. I'm drawn to work where the software has to talk directly to the physical world — where a bug doesn't just crash an app, it can affect a vehicle moving at highway speed.</p>
+        <p>I've been building things since high school — racing solar cars, designing PCBs, and writing firmware. In 2026 I drove the University of Michigan solar car cross-country from Michigan to California as part of the race crew, maintaining electrical systems on the road every day.</p>
+        <p>Outside of engineering, I enjoy working on projects that combine hardware and software in ways that are useful or just interesting. I'm also interested in the intersection of embedded systems and machine learning.</p>
+
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h4>Languages</h4>
+            <p>C · C++ · Python · MATLAB · Java · JavaScript · HTML/CSS</p>
+          </div>
+          <div class="skill-group">
+            <h4>Tools</h4>
+            <p>Altium · STM32Cube IDE · Fusion 360 · Siemens NX · GitHub · Blender</p>
+          </div>
+          <div class="skill-group">
+            <h4>Hardware</h4>
+            <p>STM32 · ESP32 · PCB layout · CAN bus · I2C · SPI · RTOS</p>
+          </div>
+          <div class="skill-group">
+            <h4>Interests</h4>
+            <p>Integrated Circuits · Embedded Systems · Robotics · Automotive Electronics</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">Contact</p>
+      <h2>Let's Talk</h2>
+    </div>
+    <div class="contact-wrapper">
+      <p>I'm always open to conversations about engineering, internship opportunities, or interesting projects. The best way to reach me is email.</p>
+      <div class="contact-links">
+        <a href="mailto:aikam@umich.edu" class="contact-link">
+          <div class="contact-link-icon">✉️</div>
+          <div class="contact-link-text">
+            <span>Email</span>
+            <strong>aikam@umich.edu</strong>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/aikamsingh" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">🔗</div>
+          <div class="contact-link-text">
+            <span>LinkedIn</span>
+            <strong>linkedin.com/in/aikamsingh</strong>
+          </div>
+        </a>
+        <a href="https://github.com/AikamSingh" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent-lt)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <span>GitHub</span>
+            <strong>github.com/AikamSingh</strong>
+          </div>
+        </a>
+        <a href="tel:8189663496" class="contact-link">
+          <div class="contact-link-icon">📱</div>
+          <div class="contact-link-text">
+            <span>Phone</span>
+            <strong>(818) 966-3496</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Aikam Singh</p>
+    <p>Built by hand · Hosted on Netlify · <a href="assets/AikamSingh_Resume.pdf" download style="color:var(--accent-lt)">Download Resume</a></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

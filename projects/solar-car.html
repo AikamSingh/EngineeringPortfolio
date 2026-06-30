@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Car Steering Wheel — Aikam Singh</title>
+  <meta name="description" content="Case study: Designing and manufacturing the race-critical steering wheel PCB for the University of Michigan Solar Car." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* ── Project page specifics ────────────────────────────────── */
+    .project-hero {
+      padding: 64px 0 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-hero-text {
+      max-width: 720px; margin-bottom: 56px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .875rem; font-weight: 500; color: var(--text-muted);
+      margin-bottom: 32px; transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--accent-lt); }
+
+    .project-hero h1 { margin-bottom: 20px; font-size: clamp(2rem, 5vw, 3.2rem); }
+    .project-hero .lead {
+      font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px;
+    }
+
+    .meta-strip {
+      display: flex; flex-wrap: wrap; gap: 32px; margin-bottom: 48px;
+      padding-bottom: 48px; border-bottom: 1px solid var(--border);
+    }
+    .meta-item span {
+      display: block; font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .meta-item strong { font-size: .95rem; }
+
+    .hero-image-grid {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 0;
+    }
+    .hero-image-grid img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .hero-image-grid img:first-child { border-radius: var(--radius) 0 0 0; }
+    .hero-image-grid img:last-child  { border-radius: 0 var(--radius) 0 0; }
+
+    /* ── Case study body ──────────────────────────────────────── */
+    .case-study { padding: 80px 0; }
+    .case-study-inner {
+      display: grid; grid-template-columns: 680px 1fr; gap: 64px; align-items: start;
+    }
+    .case-body { min-width: 0; }
+    .case-sidebar { position: sticky; top: calc(var(--nav-h) + 24px); }
+
+    .section-block { margin-bottom: 64px; }
+    .section-block h2 {
+      font-size: 1.5rem; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .section-block p { margin-bottom: 16px; }
+    .section-block p:last-child { margin-bottom: 0; }
+
+    .callout {
+      background: color-mix(in srgb, var(--accent-lt) 8%, transparent);
+      border-left: 3px solid var(--accent-lt);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px; margin: 24px 0;
+    }
+    .callout p { color: var(--text); font-size: .9rem; margin: 0; }
+
+    .image-block { margin: 32px 0; }
+    .image-block img {
+      width: 100%; border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .image-block figcaption {
+      font-size: .8rem; color: var(--text-muted); margin-top: 10px;
+      text-align: center;
+    }
+
+    .image-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0;
+    }
+    .image-row figure img {
+      width: 100%; border-radius: var(--radius); border: 1px solid var(--border);
+      object-fit: cover;
+    }
+    .image-row figcaption {
+      font-size: .8rem; color: var(--text-muted); margin-top: 8px; text-align: center;
+    }
+
+    .spec-list {
+      list-style: none; display: flex; flex-direction: column;
+      gap: 0; border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin: 24px 0;
+    }
+    .spec-list li {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; font-size: .9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-list li:last-child { border-bottom: none; }
+    .spec-list li:nth-child(even) { background: var(--bg-alt); }
+    .spec-list li span:first-child { color: var(--text-muted); }
+    .spec-list li span:last-child  { font-weight: 600; }
+
+    .challenge-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px;
+    }
+    .challenge-card h4 { font-size: .9rem; margin-bottom: 8px; color: var(--text); }
+    .challenge-card p  { font-size: .875rem; margin: 0; }
+
+    /* Sidebar */
+    .sidebar-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px; margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h4 {
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+    }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sidebar-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-card ul li {
+      font-size: .875rem; color: var(--text-muted); padding-left: 12px; position: relative;
+    }
+    .sidebar-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent-lt); }
+
+    .toc { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .toc a {
+      display: block; font-size: .85rem; padding: 6px 0;
+      color: var(--text-muted); border-bottom: 1px solid var(--border);
+      transition: color var(--transition);
+    }
+    .toc a:last-child { border-bottom: none; }
+    .toc a:hover { color: var(--accent-lt); }
+
+    .results-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0;
+    }
+    .result-stat {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .result-stat .number {
+      font-size: 2rem; font-weight: 700; color: var(--accent-lt);
+      letter-spacing: -.02em; display: block; margin-bottom: 4px;
+    }
+    .result-stat p { font-size: .85rem; margin: 0; }
+
+    @media (max-width: 900px) {
+      .case-study-inner { grid-template-columns: 1fr; }
+      .case-sidebar { position: static; }
+      .hero-image-grid { grid-template-columns: 1fr; }
+      .hero-image-grid img { border-radius: 0; }
+      .hero-image-grid img:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+      .hero-image-grid img:last-child  { display: none; }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+      .image-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .results-grid { grid-template-columns: 1fr; }
+      .meta-strip { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ───────────────────────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <a href="../index.html" class="nav-logo">Aikam<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#home">Home</a></li>
+      <li><a href="../index.html#projects" class="active">Projects</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#resume">Resume</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-theme" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+      <a href="../assets/AikamSingh_Resume.pdf" download class="btn btn-primary" style="font-size:.8rem;padding:7px 14px;">Resume ↓</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html#home">Home</a>
+  <a href="../index.html#projects">Projects</a>
+  <a href="../index.html#experience">Experience</a>
+  <a href="../index.html#resume">Resume</a>
+  <a href="../index.html#about">About</a>
+  <a href="../index.html#contact">Contact</a>
+</div>
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<div class="project-hero">
+  <div class="container">
+    <div class="project-hero-text">
+      <a href="../index.html#projects" class="back-link">← All Projects</a>
+      <div class="hero-tag" style="margin-bottom:16px">Race Critical · University of Michigan Solar Car</div>
+      <h1>Solar Car Steering Wheel</h1>
+      <p class="lead">
+        Designing, manufacturing, and deploying the driver interface for a cross-country solar racing vehicle — from first Altium schematic to real-world validation on a 2,000+ mile route.
+      </p>
+      <div class="meta-strip">
+        <div class="meta-item">
+          <span>Timeline</span>
+          <strong>Jul 2025 – Present</strong>
+        </div>
+        <div class="meta-item">
+          <span>Role</span>
+          <strong>Hardware + Firmware Lead</strong>
+        </div>
+        <div class="meta-item">
+          <span>Tools</span>
+          <strong>Altium, STM32Cube IDE, C</strong>
+        </div>
+        <div class="meta-item">
+          <span>Status</span>
+          <strong>2026 deployed · 2027 in design</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="padding-left:24px;padding-right:0;max-width:1100px">
+    <div class="hero-image-grid">
+      <img src="../assets/steering_wheel_on_car.JPG" alt="Steering wheel installed in solar car cockpit" />
+      <img src="../assets/solar_car_charging.JPG" alt="Solar car charging during Solar Trek" />
+    </div>
+  </div>
+</div>
+
+<!-- ── Case Study ─────────────────────────────────────────────── -->
+<div class="case-study">
+  <div class="container">
+    <div class="case-study-inner">
+
+      <!-- Body -->
+      <div class="case-body">
+
+        <!-- Problem -->
+        <div class="section-block" id="problem">
+          <h2>The Problem</h2>
+          <p>
+            The University of Michigan Solar Car competes in multi-day solar racing events — most notably the World Solar Challenge across the Australian outback. The driver interface has to be race-critical: it must reliably display vehicle telemetry, communicate driver intent to the motor controller over CAN bus, and survive harsh desert conditions with zero tolerance for failure.
+          </p>
+          <p>
+            The 2025 steering wheel had accumulated technical debt. Push-to-talk noise was a recurring issue, the screen was difficult to read in direct sunlight, and the mechanical assembly was painful because the PCB didn't align well with the enclosure. The team needed a cleaner, more reliable design before Solar Trek 2026.
+          </p>
+          <div class="callout">
+            <p><strong>Design constraint:</strong> WSC regulations (section 2.25) require that speed, turn signals, hazard lights, battery warnings, and rear vision images must always be visible to the driver while in motion — not behind menus, not toggle-able.</p>
+          </div>
+        </div>
+
+        <!-- Requirements -->
+        <div class="section-block" id="requirements">
+          <h2>Requirements</h2>
+          <p>Before touching Altium, I mapped out the hard and soft requirements for the system:</p>
+          <ul class="spec-list">
+            <li><span>CAN bus communication</span><span>Required — all vehicle data</span></li>
+            <li><span>Display</span><span>OLED graphical (2026), targeting LCD (2027)</span></li>
+            <li><span>Push-to-talk</span><span>Low-noise hardware implementation</span></li>
+            <li><span>Torque / regen paddles</span><span>Analog input to motor controller</span></li>
+            <li><span>Panel-mounted hardware</span><span>Dust ingress reduction</span></li>
+            <li><span>Power source</span><span>Vehicle energy storage system only (WSC 2.25.2)</span></li>
+            <li><span>Environmental</span><span>Survive Australian outback conditions</span></li>
+            <li><span>Always-visible telemetry</span><span>Speed, signals, hazard, battery (WSC 2.25.1)</span></li>
+          </ul>
+        </div>
+
+        <!-- Design Process -->
+        <div class="section-block" id="design">
+          <h2>Design Process</h2>
+          <p>
+            [Placeholder — describe the schematic design approach here. What were the key design decisions in Altium? How was the MCU selected? How was the CAN bus transceiver chosen and routed? What power conditioning did you use?]
+          </p>
+
+          <div class="image-block">
+            <figure>
+              <img src="../assets/steering_wheel_pcb_schematic.png" alt="PCB schematic in Altium" />
+              <figcaption>Fig 1. PCB schematic — Altium Designer</figcaption>
+            </figure>
+          </div>
+
+          <p>
+            [Placeholder — describe PCB layout decisions. Ground planes, signal routing, button placement, screen integration. How did you account for the mechanical enclosure early in the layout process?]
+          </p>
+
+          <div class="image-row">
+            <figure>
+              <img src="../assets/steering_wheel_PCB1.png" alt="PCB layout — top layer" />
+              <figcaption>Fig 2. PCB layout — top layer</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/steering_wheel_PCB2.png" alt="PCB layout — bottom layer" />
+              <figcaption>Fig 3. PCB layout — bottom layer</figcaption>
+            </figure>
+          </div>
+
+          <p>
+            [Placeholder — describe panel mount button selection, screen placement, connector choices. How did collaboration with the mechanical team inform PCB layout?]
+          </p>
+        </div>
+
+        <!-- Firmware -->
+        <div class="section-block" id="firmware">
+          <h2>Firmware</h2>
+          <p>
+            [Placeholder — describe the firmware architecture. RTOS task structure, CAN bus message handling, display update loop, button debouncing. Why was the firmware rewritten from scratch rather than iterated?]
+          </p>
+          <div class="callout">
+            <p><strong>Decision:</strong> [Placeholder — describe a specific firmware decision and the engineering reasoning behind it. Example: chose FreeRTOS over bare-metal because display updates and CAN receive needed reliable scheduling without blocking each other.]</p>
+          </div>
+          <p>
+            [Placeholder — describe the CAN bus message structure. What signals are sent from the steering wheel to the motor controller? What telemetry does the wheel receive and display?]
+          </p>
+        </div>
+
+        <!-- Challenges -->
+        <div class="section-block" id="challenges">
+          <h2>Challenges</h2>
+
+          <div class="challenge-card">
+            <h4>PTT Noise</h4>
+            <p>[Placeholder — describe the push-to-talk noise issue. What caused it? Was it a ground loop, RF interference, or a software filtering problem? How was it diagnosed and fixed?]</p>
+          </div>
+
+          <div class="challenge-card">
+            <h4>Mechanical Assembly Mismatch</h4>
+            <p>[Placeholder — describe the PCB-to-enclosure alignment problem. What specifically was misaligned? Was it connector placement, button height, or mounting hole locations? What changed in the process to prevent it next time?]</p>
+          </div>
+
+          <div class="challenge-card">
+            <h4>Screen Readability in Direct Sunlight</h4>
+            <p>[Placeholder — describe the OLED sunlight readability issue. What was the contrast like? Did you try software fixes (brightness, inversion) before concluding hardware changes were needed? What display type is planned for 2027 and why?]</p>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="section-block" id="results">
+          <h2>Results</h2>
+          <p>
+            The 2026 steering wheel was deployed on Solar Trek — a 2,000+ mile cross-country drive from Michigan to California. I was part of the race crew, driving the car and maintaining the electrical systems on the road.
+          </p>
+          <div class="results-grid">
+            <div class="result-stat">
+              <span class="number">2,000+</span>
+              <p>miles driven during Solar Trek 2026</p>
+            </div>
+            <div class="result-stat">
+              <span class="number">0</span>
+              <p>steering wheel electrical failures during Solar Trek</p>
+            </div>
+            <div class="result-stat">
+              <span class="number">↓ PTT</span>
+              <p>noise reduced vs. previous design</p>
+            </div>
+            <div class="result-stat">
+              <span class="number">Panel</span>
+              <p>mounted hardware — dust ingress minimized</p>
+            </div>
+          </div>
+          <p style="margin-top:16px">
+            [Placeholder — add any specific metrics: PCB dimensions, current consumption, CAN message latency, display refresh rate. What feedback did the other drivers give?]
+          </p>
+
+          <div class="image-block">
+            <figure>
+              <img src="../assets/driving_solar_car.JPEG" alt="Driving the solar car during Solar Trek 2026" />
+              <figcaption>Fig 4. Driving the solar car during Solar Trek 2026 — Michigan to California</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- 2027 -->
+        <div class="section-block" id="next">
+          <h2>2027 Redesign</h2>
+          <p>
+            Based on Solar Trek experience, I'm leading the 2027 steering wheel redesign. The main goals:
+          </p>
+          <ul class="spec-list">
+            <li><span>Display</span><span>OLED → 4-line LCD character display</span></li>
+            <li><span>Screen placement</span><span>Evaluating on-wheel vs. column-mounted</span></li>
+            <li><span>Column detection sensor</span><span>IMU or shorted-connection approach</span></li>
+            <li><span>Button hardware</span><span>Taller panel-mount buttons, new manufacturer</span></li>
+            <li><span>PCB integration</span><span>Altium into Siemens NX early in cycle</span></li>
+            <li><span>Regen paddles</span><span>Evaluating repositioning for ergonomics</span></li>
+          </ul>
+          <div class="callout">
+            <p><strong>Safety requirement:</strong> The column-detection sensor is race-critical — if the steering wheel is disconnected from the column, torque commands must be disabled to prevent the car from moving uncontrolled. The sensor needs to be reliable and overridable for diagnostics.</p>
+          </div>
+        </div>
+
+        <!-- Lessons -->
+        <div class="section-block" id="lessons">
+          <h2>Lessons Learned</h2>
+          <p>
+            [Placeholder — write 2-3 honest lessons from this project. What would you do differently on the first pass? What assumption turned out to be wrong? What did you learn about hardware-software co-design on a constrained, race-critical system?]
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="case-sidebar">
+        <div class="sidebar-card">
+          <h4>On This Page</h4>
+          <ul class="toc">
+            <a href="#problem">The Problem</a>
+            <a href="#requirements">Requirements</a>
+            <a href="#design">Design Process</a>
+            <a href="#firmware">Firmware</a>
+            <a href="#challenges">Challenges</a>
+            <a href="#results">Results</a>
+            <a href="#next">2027 Redesign</a>
+            <a href="#lessons">Lessons Learned</a>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Technologies</h4>
+          <div class="sidebar-tags">
+            <span class="chip">Altium Designer</span>
+            <span class="chip">STM32</span>
+            <span class="chip">C / RTOS</span>
+            <span class="chip">CAN bus</span>
+            <span class="chip">OLED</span>
+            <span class="chip">SPI</span>
+            <span class="chip">Siemens NX</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Validation</h4>
+          <ul>
+            <li>Oscilloscope — signal integrity</li>
+            <li>Logic analyzer — CAN bus traffic</li>
+            <li>Solar Trek 2026 — 2,000+ miles driven</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Team</h4>
+          <ul>
+            <li>Aikam Singh — Hardware + Firmware Lead</li>
+            <li>Jason Wang — Firmware collaboration</li>
+            <li>Mechanical team — enclosure design</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Aikam Singh</p>
+    <div style="display:flex;gap:16px;align-items:center">
+      <a href="../index.html#projects" style="font-size:.85rem;color:var(--text-muted)">← All Projects</a>
+      <a href="spotify.html" style="font-size:.85rem;color:var(--accent-lt)">Next Project →</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../main.js"></script>
+</body>
+</html>
