@@ -81,7 +81,7 @@ nav {
 }
 
 .nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: center;
   height: 100%;
 }
 
