@@ -92,3 +92,46 @@ document.querySelectorAll('.skill-cat-block').forEach((el, i) => {
   el.classList.add('fade-in');
   fadeObserver.observe(el);
 });
+
+// ── Lightbox ───────────────────────────────────────────────────
+const overlay = document.createElement('div');
+overlay.className = 'lightbox-overlay';
+overlay.setAttribute('role', 'dialog');
+overlay.setAttribute('aria-modal', 'true');
+overlay.setAttribute('aria-label', 'Image lightbox');
+
+const overlayImg = document.createElement('img');
+const closeBtn   = document.createElement('button');
+closeBtn.className   = 'lightbox-close';
+closeBtn.textContent = '×';
+closeBtn.setAttribute('aria-label', 'Close lightbox');
+
+overlay.appendChild(overlayImg);
+overlay.appendChild(closeBtn);
+document.body.appendChild(overlay);
+
+function openLightbox(src, alt) {
+  overlayImg.src = src;
+  overlayImg.alt = alt || '';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  closeBtn.focus();
+}
+
+function closeLightbox() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.image-block img, .image-row img').forEach(img => {
+  img.classList.add('lightbox-trigger');
+  img.setAttribute('tabindex', '0');
+  img.setAttribute('role', 'button');
+  img.setAttribute('aria-label', `Enlarge: ${img.alt || 'image'}`);
+  img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openLightbox(img.src, img.alt); });
+});
+
+closeBtn.addEventListener('click', closeLightbox);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });

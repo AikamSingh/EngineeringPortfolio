@@ -51,8 +51,8 @@
         <div class="hero-tag">Race Critical · University of Michigan Solar Car</div>
         <h1>Solar Car Steering Wheel</h1>
         <p class="lead">
-          Designing, manufacturing, and deploying the driver interface for a cross-country solar racing vehicle — from
-          first Altium schematic to real-world validation on a 2,800+ mile route.
+          The steering wheel is the only thing a solar car driver touches. It has to show the right data, take reliable
+          inputs, and never fail — across deserts, mountain passes, and 2,800+ miles of road.
         </p>
         <div class="meta-strip meta-strip--sep">
           <div class="meta-item">
@@ -71,9 +71,8 @@
       </div>
     </div>
     <div class="container hero-image-container">
-      <div class="hero-image-grid">
-        <img src="../assets/steering_wheel_on_car.JPG" alt="Steering wheel installed in solar car cockpit" />
-        <img src="../assets/solar_car_charging.JPG" alt="Solar car charging during Solar Trek" />
+      <div class="hero-image-full">
+        <img src="../assets/solar_car_charging.JPG" alt="Solar car charging during Solar Trek 2026" />
       </div>
     </div>
   </div>
@@ -90,18 +89,17 @@
           <div class="section-block" id="problem">
             <h2>The Problem</h2>
             <p>
-              The University of Michigan Solar Car competes in multi-day solar racing events — most notably the World
-              Solar Challenge across the Australian outback. The driver interface has to be race-critical: it must
-              reliably display vehicle telemetry, communicate driver intent to the motor controller over CAN bus, and
-              survive harsh desert conditions with zero tolerance for failure.
+              Michigan Solar Car competes in multi-day events — the big one is the World Solar Challenge across the
+              Australian outback. The steering wheel carries all the driver inputs and displays the telemetry the driver
+              needs to make real-time decisions. If it fails, the car stops.
             </p>
             <p>
-              The 2025 steering wheel had accumulated technical debt. Push-to-talk noise was a recurring issue, the
-              screen was difficult to read in direct sunlight, and the mechanical assembly was painful because the PCB
-              didn't align well with the enclosure. The team needed a cleaner, more reliable design before Solar Trek
-              2026.
+              The 2025 wheel had a few known problems going into Solar Trek 2026. Push-to-talk had persistent noise
+              that made radio communication frustrating. The OLED was hard to read in direct sunlight. And the PCB
+              didn't fit cleanly into the enclosure — assembly was a pain, and the mechanical team had to work around
+              it. None of these were catastrophic, but they added up. The team wanted a cleaner design before
+              the next long trip.
             </p>
-
           </div>
 
           <!-- Requirements -->
@@ -118,61 +116,90 @@
               <li><span>Environmental</span><span>Survive Australian outback conditions</span></li>
               <li><span>Always-visible telemetry</span><span>Speed, signals, hazard, battery</span></li>
             </ul>
+
+            <div class="image-block">
+              <figure>
+                <img src="../assets/steering_wheel_on_car.JPG" alt="Steering wheel installed in solar car cockpit" />
+                <figcaption>Fig 1. Installed in the cockpit — the wheel connects to the column via a quick-release, which also carries power and the CAN harness.</figcaption>
+              </figure>
+            </div>
           </div>
 
           <!-- Design Process -->
           <div class="section-block" id="design">
             <h2>Design Process</h2>
             <p>
-              [Placeholder — describe the schematic design approach here. What were the key design decisions in Altium?
-              How was the MCU selected? How was the CAN bus transceiver chosen and routed? What power conditioning did
-              you use?]
+              I started with the schematic in Altium, using the 2025 design as a reference for what to keep and what
+              to change. The MCU choice was easy — the existing board used an STM32, so I stayed with that family.
+              Switching would have meant rewriting the entire firmware stack for no real benefit.
+            </p>
+            <p>
+              For the CAN bus transceiver, I chose one compatible with what the rest of the vehicle already used.
+              That mattered for testing — I could validate CAN communication with the motor controller early, without
+              worrying about signal-level mismatches or termination differences.
+            </p>
+            <p>
+              The steering wheel is powered off the vehicle battery, so I added filtering and protection on the input
+              rail. The battery voltage can spike when large loads switch on the vehicle's power distribution board,
+              and the last thing I wanted was the steering wheel browning out mid-race.
             </p>
 
             <div class="image-block">
               <figure>
                 <img src="../assets/steering_wheel_pcb_schematic.png" alt="PCB schematic in Altium" />
-                <figcaption>Fig 1. PCB schematic — Altium Designer</figcaption>
+                <figcaption>Fig 2. PCB schematic — Altium Designer</figcaption>
               </figure>
             </div>
 
             <p>
-              [Placeholder — describe PCB layout decisions. Ground planes, signal routing, button placement, screen
-              integration. How did you account for the mechanical enclosure early in the layout process?]
+              For layout, I set up a solid ground plane early. The board mixes analog and digital signals — PTT
+              audio, button inputs, and CAN bus — so I kept the analog traces short and separated from the switching
+              signals. It's not a high-frequency board, but sloppy routing had caused PTT issues before.
+            </p>
+            <p>
+              I coordinated with the mechanical team in Siemens NX before finalizing the layout. One of the 2025
+              board's biggest problems was that connector and button positions didn't line up with the enclosure
+              cutouts. This time I got the exact hole locations and mounting points from the CAD model and matched
+              the layout to them before sending to fab.
+            </p>
+            <p>
+              All the buttons are panel-mounted — threaded hardware that screws directly into the enclosure, which
+              keeps mechanical stress off the PCB pads. The OLED connects over SPI. The CAN transceiver runs to a
+              dedicated connector that mates with the vehicle's harness.
             </p>
 
             <div class="image-row">
               <figure>
                 <img src="../assets/steering_wheel_PCB1.png" alt="PCB layout — top layer" />
-                <figcaption>Fig 2. PCB layout — top layer</figcaption>
+                <figcaption>Fig 3. PCB layout — top layer</figcaption>
               </figure>
               <figure>
                 <img src="../assets/steering_wheel_PCB2.png" alt="PCB layout — bottom layer" />
-                <figcaption>Fig 3. PCB layout — bottom layer</figcaption>
+                <figcaption>Fig 4. PCB layout — bottom layer</figcaption>
               </figure>
             </div>
-
-            <p>
-              [Placeholder — describe panel mount button selection, screen placement, connector choices. How did
-              collaboration with the mechanical team inform PCB layout?]
-            </p>
           </div>
 
           <!-- Firmware -->
           <div class="section-block" id="firmware">
             <h2>Firmware</h2>
             <p>
-              [Placeholder — describe the firmware architecture. RTOS task structure, CAN bus message handling, display
-              update loop, button debouncing. Why was the firmware rewritten from scratch rather than iterated?]
+              The firmware runs on FreeRTOS. I needed two reliable loops running independently — one for the
+              display update, one for CAN receive — and a bare-metal superloop wasn't going to cut it. If the
+              display took too long, the CAN receive handler would slip. With RTOS I could give the CAN task
+              higher priority and let it preempt the display refresh if a message came in.
             </p>
             <div class="callout">
-              <p><strong>Decision:</strong> [Placeholder — describe a specific firmware decision and the engineering
-                reasoning behind it. Example: chose FreeRTOS over bare-metal because display updates and CAN receive
-                needed reliable scheduling without blocking each other.]</p>
+              <p><strong>Decision:</strong> I rewrote the firmware from scratch instead of patching the 2025 code.
+                The old firmware had accumulated workarounds that made the task timing hard to reason about. Starting
+                clean with clearly scoped RTOS tasks took roughly the same amount of time and was far easier to
+                debug during bring-up.</p>
             </div>
             <p>
-              [Placeholder — describe the CAN bus message structure. What signals are sent from the steering wheel to
-              the motor controller? What telemetry does the wheel receive and display?]
+              The CAN bus carries all the vehicle state. The steering wheel receives speed, battery level, and turn
+              signal state from the rest of the car. It sends back driver inputs — torque request, regen braking
+              level, push-to-talk state, and hazard toggle. Message IDs are defined in the team's shared DBC file
+              so every node on the bus agrees on the signal format.
             </p>
           </div>
 
@@ -182,22 +209,30 @@
 
             <div class="challenge-card">
               <h4>PTT Noise</h4>
-              <p>[Placeholder — describe the push-to-talk noise issue. What caused it? Was it a ground loop, RF
-                interference, or a software filtering problem? How was it diagnosed and fixed?]</p>
+              <p>The push-to-talk issue was a ground loop. The PTT audio path shared a ground return with the CAN
+                transceiver, and switching activity on the CAN side was coupling noise into the audio line. I traced
+                it with an oscilloscope — the noise spike was clearly correlated with CAN traffic. The fix was
+                separating the ground returns and adding a small ferrite bead on the audio line. It wasn't obvious
+                until I saw the scope trace side-by-side with the CAN bus activity.</p>
             </div>
 
             <div class="challenge-card">
               <h4>Mechanical Assembly Mismatch</h4>
-              <p>[Placeholder — describe the PCB-to-enclosure alignment problem. What specifically was misaligned? Was
-                it connector placement, button height, or mounting hole locations? What changed in the process to
-                prevent it next time?]</p>
+              <p>The 2025 board's connector placement didn't match the enclosure cutouts — a few millimeters off on
+                one axis. Assembly required filing the cutout slightly, which put sideways stress on the connector
+                pads. For 2026 I coordinated with the mechanical team earlier and verified every panel-mount
+                position against the CAD model before finalizing the layout. The fit was noticeably better,
+                though not perfect. The lesson was that shared drawings aren't good enough — you need to check
+                against the actual CAD.</p>
             </div>
 
             <div class="challenge-card">
               <h4>Screen Readability in Direct Sunlight</h4>
-              <p>[Placeholder — describe the OLED sunlight readability issue. What was the contrast like? Did you try
-                software fixes (brightness, inversion) before concluding hardware changes were needed? What display type
-                is planned for 2027 and why?]</p>
+              <p>OLEDs are emissive — they generate their own light. In direct sunlight, ambient light overwhelms
+                the display. I tried cranking brightness to maximum and inverting the display in software (white
+                background, black text), but neither helped enough. The 2027 redesign is switching to a character
+                LCD. Reflective displays use ambient light instead of fighting it, which makes them actually easier
+                to read outdoors. It's counterintuitive until you understand the physics.</p>
             </div>
           </div>
 
@@ -228,14 +263,16 @@
               </div>
             </div>
             <p class="results-note">
-              [Placeholder — add any specific metrics: PCB dimensions, current consumption, CAN message latency, display
-              refresh rate. What feedback did the other drivers give?]
+              The board ran without steering wheel electrical failures during the trek. PTT noise was noticeably
+              reduced — drivers stopped complaining about radio chatter. The telemetry layout got positive feedback
+              from the other drivers, particularly the battery readout placement. A few things still need work for
+              2027, mainly the OLED readability in afternoon sun.
             </p>
 
             <div class="image-block">
               <figure>
                 <img src="../assets/driving_solar_car.JPEG" alt="Driving the solar car during Solar Trek 2026" />
-                <figcaption>Fig 4. Driving the solar car during Solar Trek 2026 — Michigan to California</figcaption>
+                <figcaption>Fig 5. Driving the solar car during Solar Trek 2026 — Michigan to California</figcaption>
               </figure>
             </div>
           </div>
@@ -261,54 +298,49 @@
             </div>
           </div>
 
+          <!-- Tools & Validation -->
+          <div class="section-block" id="tools">
+            <h2>Tools &amp; Validation</h2>
+            <p>
+              The hardware side was designed entirely in Altium Designer — schematic capture, PCB layout, and DRC.
+              Mechanical coordination happened in Siemens NX, sharing reference geometry with the enclosure team.
+              Firmware was written in C using FreeRTOS, developed in STM32CubeIDE.
+            </p>
+            <div class="sidebar-tags" style="margin: 1rem 0 1.5rem;">
+              <span class="chip">Altium Designer</span>
+              <span class="chip">STM32</span>
+              <span class="chip">C / FreeRTOS</span>
+              <span class="chip">CAN bus</span>
+              <span class="chip">OLED / SPI</span>
+              <span class="chip">Siemens NX</span>
+            </div>
+            <p>
+              Before the board left the bench I validated signal integrity on the CAN lines with an oscilloscope
+              and confirmed message traffic with a logic analyzer. The real validation was Solar Trek itself —
+              2,800+ miles of driving is a better stress test than anything I could have set up in a lab.
+            </p>
+          </div>
+
           <!-- Lessons -->
           <div class="section-block" id="lessons">
             <h2>Lessons Learned</h2>
             <p>
-              [Placeholder — write 2-3 honest lessons from this project. What would you do differently on the first
-              pass? What assumption turned out to be wrong? What did you learn about hardware-software co-design on a
-              constrained, race-critical system?]
+              The biggest thing I'd do differently: get the Altium layout into Siemens NX earlier. I thought shared
+              dimension drawings were enough for mechanical coordination, but drawings don't catch everything. When
+              the board arrived, two connector positions were off. Not a showstopper, but it cost time during
+              assembly that a CAD check would have caught.
             </p>
-          </div>
-
-        </div>
-
-        <!-- Sidebar -->
-        <div class="case-sidebar">
-          <div class="sidebar-card">
-            <h4>On This Page</h4>
-            <ul class="toc">
-              <a href="#problem">The Problem</a>
-              <a href="#requirements">Requirements</a>
-              <a href="#design">Design Process</a>
-              <a href="#firmware">Firmware</a>
-              <a href="#challenges">Challenges</a>
-              <a href="#results">Results</a>
-              <a href="#next">2027 Redesign</a>
-              <a href="#lessons">Lessons Learned</a>
-            </ul>
-          </div>
-
-          <div class="sidebar-card">
-            <h4>Technologies</h4>
-            <div class="sidebar-tags">
-              <span class="chip">Altium Designer</span>
-              <span class="chip">STM32</span>
-              <span class="chip">C / RTOS</span>
-              <span class="chip">CAN bus</span>
-              <span class="chip">OLED</span>
-              <span class="chip">SPI</span>
-              <span class="chip">Siemens NX</span>
-            </div>
-          </div>
-
-          <div class="sidebar-card">
-            <h4>Validation</h4>
-            <ul>
-              <li>Oscilloscope — signal integrity</li>
-              <li>Logic analyzer — CAN bus traffic</li>
-              <li>Solar Trek 2026 — 2,000+ miles driven</li>
-            </ul>
+            <p>
+              I also underestimated firmware bring-up time. The hardware came up fast — I had the OLED displaying
+              data and CAN traffic flowing within a day. But the CAN message timing had edge cases that took a
+              while to track down. A driver command could be lost if it arrived during a display refresh. Going
+              forward I'd write the test harness and timing-stress tests before the board arrives, not after.
+            </p>
+            <p>
+              The OLED choice is the one I'd reconsider most. I knew reflective LCDs were better for outdoor
+              readability — I just didn't push back hard enough on the decision before we committed. That's now
+              a 2027 fix instead of a 2026 feature.
+            </p>
           </div>
 
         </div>

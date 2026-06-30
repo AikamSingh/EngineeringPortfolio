@@ -45,7 +45,7 @@
     <div class="hero-tag">In Progress · 2026</div>
     <h1>Spotify Music Controller</h1>
     <p class="lead">
-      A physical desk-side controller for Spotify — rotary encoder navigation, e-ink display for album art, and local API integration. No phone required.
+      A physical desk controller for Spotify — one rotary knob, a few buttons, e-ink album art, and a Wi-Fi connection to the Spotify API. The goal is simple: control music without touching the computer.
     </p>
     <div class="meta-strip">
       <div class="meta-item">
@@ -71,28 +71,34 @@
       <div class="wip-banner-icon">🚧</div>
       <div>
         <h3>Work in Progress</h3>
-        <p>This project is actively under development. This page will be updated with schematics, firmware details, and build photos as the project progresses.</p>
+        <p>This page will be updated with schematics, firmware details, and build photos as the project comes together.</p>
       </div>
     </div>
 
     <h2>The Idea</h2>
     <p>
-      I wanted a physical controller for Spotify that lives on my desk — something with real tactile feedback, a display for album art, and no dependency on pulling out a phone or alt-tabbing to a browser. The controller talks to the Spotify Web API over Wi-Fi, so it works with any device playing on the account.
+      I kept reaching for my phone to skip tracks or adjust volume while working. Alt-tabbing to Spotify broke my focus. I wanted something physical on my desk — a knob I could reach for without thinking about it.
     </p>
     <p>
-      The ESP32 was the natural choice — it has Wi-Fi built in, enough GPIO for a rotary encoder and several buttons, and a well-supported Arduino/ESP-IDF ecosystem for display drivers and HTTP clients.
+      The ESP32 made sense for this. It has Wi-Fi built in, enough GPIO for a rotary encoder and a few buttons, and solid library support for the display driver I wanted. I chose an e-ink display specifically because I didn't want something bright competing with my monitors — e-ink is easy to ignore when you're not looking at it, which is what a desk tool should be.
     </p>
 
     <div class="placeholder-img">🎵</div>
 
-    <h2>Design Goals</h2>
+    <h2>What I'm Building</h2>
     <p>
-      Play/pause, skip, volume control via rotary encoder. Album art on e-ink display. Track name and artist in text. Low power when idle. Small enough to live next to a keyboard without getting in the way.
+      Play/pause, skip forward, skip back, and volume via the rotary encoder. The e-ink panel shows album art, track name, and artist. When nothing is playing, the display clears — e-ink doesn't need to refresh constantly, so there's no visual noise.
+    </p>
+    <p>
+      Size matters. It should fit next to a keyboard without taking up real estate.
     </p>
 
-    <h2>Status</h2>
+    <h2>Where It's At</h2>
     <p>
-      Currently working through Spotify Web API OAuth flow on ESP32, display driver integration, and enclosure design. Updates coming.
+      The OAuth flow is the awkward part. Spotify uses OAuth 2.0 with a browser redirect, which doesn't map cleanly onto a microcontroller with no browser. The approach I'm testing: do the initial auth on a laptop, store the refresh token in ESP32 flash, then let the device handle token renewal automatically going forward.
+    </p>
+    <p>
+      The e-ink driver is mostly working. Full-panel refreshes take about two seconds and have a visible flicker, so I'm looking into partial update modes to make track changes feel faster. Enclosure design is next.
     </p>
 
   </div>
