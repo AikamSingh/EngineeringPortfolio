@@ -28,7 +28,7 @@
 
     <div class="nav-actions">
       <button class="btn-theme" id="theme-toggle" aria-label="Toggle theme">🌙</button>
-      <a href="assets/AikamSingh_Resume.pdf" download class="btn btn-primary" style="font-size:.8rem;padding:7px 14px;">Resume ↓</a>
+      <a href="assets/Aikam_Resume.pdf" download class="btn btn-primary btn-nav">Resume ↓</a>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -103,7 +103,7 @@
         <div class="project-body">
           <div class="project-meta">
             <span class="tag">Embedded Systems</span>
-            <span style="font-size:.8rem;color:var(--text-muted)">2025–Present</span>
+            <span class="project-date">2025–Present</span>
           </div>
           <h3>Solar Car Steering Wheel</h3>
           <p>Designed and manufactured a custom PCB integrating buttons, an OLED display, and CAN bus communication for the University of Michigan Solar Car's race-critical driver interface.</p>
@@ -127,7 +127,7 @@
         <div class="project-body">
           <div class="project-meta">
             <span class="tag tag-wip">In Progress</span>
-            <span style="font-size:.8rem;color:var(--text-muted)">2026</span>
+            <span class="project-date">2026</span>
           </div>
           <h3>Spotify Music Controller</h3>
           <p>A physical hardware controller for Spotify — rotary encoder navigation, e-ink display for album art, and local API integration. Designed for a desk-side experience without touching a phone.</p>
@@ -151,7 +151,7 @@
         <div class="project-body">
           <div class="project-meta">
             <span class="tag">Embedded Systems</span>
-            <span style="font-size:.8rem;color:var(--text-muted)">Feb 2026–Present</span>
+            <span class="project-date">Feb 2026–Present</span>
           </div>
           <h3>Smartwatch Firmware</h3>
           <p>Developed RTOS-based firmware for a custom smartwatch on ESP32. Features step tracking with accelerometer, real-time stopwatch, and wireless connectivity over I2C peripherals.</p>
@@ -187,7 +187,7 @@
         <div class="timeline-content">
           <h3>Microsystems Engineer</h3>
           <div class="timeline-org">University of Michigan Solar Car Team</div>
-          <p style="font-size:.9rem;margin-bottom:0">Embedded systems and PCB design for a race-critical vehicle.</p>
+          <p class="timeline-intro">Embedded systems and PCB design for a race-critical vehicle.</p>
           <ul class="timeline-bullets">
             <li>Drove solar car cross-country (Michigan → California) as 2026 Race Crew; maintained and repaired electrical systems under race conditions</li>
             <li>Designed steering wheel PCB in Altium: buttons, OLED display, CAN bus; validated with oscilloscope and logic analyzer</li>
@@ -262,15 +262,15 @@
           <li>2× Texas Solar Car Challenge podium finish</li>
           <li>Tools: Altium, Fusion 360, Siemens NX, STM32Cube IDE, Python, MATLAB</li>
         </ul>
-        <a href="assets/AikamSingh_Resume.pdf" download class="btn btn-primary">Download PDF ↓</a>
+        <a href="assets/Aikam_Resume.pdf" download class="btn btn-primary">Download PDF ↓</a>
       </div>
 
       <div class="resume-card fade-in">
         <div class="resume-card-icon">📄</div>
         <h3>Aikam</h3>
         <p>Computer Engineering<br>University of Michigan<br>GPA 3.9 / 4.0 · Expected May 2029</p>
-        <a href="assets/AikamSingh_Resume.pdf" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:12px;">View Resume</a>
-        <a href="assets/AikamSingh_Resume.pdf" download class="btn btn-primary" style="width:100%;justify-content:center;">Download ↓</a>
+        <a href="assets/Aikam_Resume.pdf" target="_blank" class="btn btn-outline btn-full-mb">View Resume</a>
+        <a href="assets/Aikam_Resume.pdf" download class="btn btn-primary btn-full">Download ↓</a>
       </div>
     </div>
   </div>
@@ -321,25 +321,68 @@
       <h2>Let's Talk</h2>
     </div>
     <div class="contact-wrapper">
-      <p>I'm always open to conversations about engineering, internship opportunities, or interesting projects. The best way to reach me is email.</p>
-      <div class="contact-links">
-        <a href="#" id="contact-email-link" class="contact-link" aria-label="Email contact">
-          <div class="contact-link-icon">✉️</div>
-          <div class="contact-link-text">
-            <span>Email</span>
-            <strong id="contact-email-display">JavaScript required</strong>
-          </div>
-        </a>
-        <a href="https://linkedin.com/in/aikamsingh" target="_blank" rel="noopener" class="contact-link">
+      <p>I'm always open to conversations about engineering, internship opportunities, or interesting projects. Send me a message and I'll get back to you.</p>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        class="contact-form"
+        id="contact-form"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="contact" />
+
+        <div class="form-honeypot" aria-hidden="true">
+          <label>Do not fill: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="f-name">Name</label>
+          <input
+            type="text" id="f-name" name="name"
+            class="form-input" required
+            autocomplete="name" placeholder="Your name"
+            maxlength="120"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="f-email">Email</label>
+          <input
+            type="email" id="f-email" name="email"
+            class="form-input" required
+            autocomplete="email" placeholder="you@example.com"
+            maxlength="254"
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="f-message">Message</label>
+          <textarea
+            id="f-message" name="message"
+            class="form-textarea" required
+            rows="5" placeholder="Your message…"
+            maxlength="2000"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">Send Message →</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="contact-links contact-social-links">
+        <a href="https://linkedin.com/in/aikamsingh" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon">🔗</div>
           <div class="contact-link-text">
             <span>LinkedIn</span>
             <strong>linkedin.com/in/aikamsingh</strong>
           </div>
         </a>
-        <a href="https://github.com/AikamSingh" target="_blank" rel="noopener" class="contact-link">
+        <a href="https://github.com/AikamSingh" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent-lt)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
           </div>
           <div class="contact-link-text">
             <span>GitHub</span>
@@ -355,7 +398,7 @@
 <footer>
   <div class="container footer-inner">
     <p>© 2026 Aikam</p>
-    <p>Built by hand · Hosted on Netlify · <a href="assets/AikamSingh_Resume.pdf" download style="color:var(--accent-lt)">Download Resume</a></p>
+    <p>Built by hand · Hosted on Netlify · <a href="assets/Aikam_Resume.pdf" download class="footer-link">Download Resume</a></p>
   </div>
 </footer>
 

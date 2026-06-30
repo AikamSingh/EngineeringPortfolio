@@ -9,7 +9,7 @@
   for = "/*"
   [headers.values]
     # CSP: allow self + Google Fonts; block frames; no inline scripts
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
     # HSTS: 1 year, include subdomains, eligible for preload list
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Frame-Options = "DENY"
@@ -30,7 +30,7 @@
 # ── Redirects ─────────────────────────────────────────────────────────────
 # Force HTTPS (Netlify handles TLS termination, but this handles edge cases)
 [[redirects]]
-  from = "http://aikam.netlify.app/*"
-  to   = "https://aikam.netlify.app/:splat"
+  from = "http://aikamsingh.com/*"
+  to   = "http://aikamsingh.com/:splat"
   status = 301
   force  = true

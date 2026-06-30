@@ -70,12 +70,40 @@ document.querySelectorAll('.project-card, .timeline-item').forEach((el, i) => {
   fadeObserver.observe(el);
 });
 
-// ── Email obfuscation (assembled at runtime to defeat scrapers) ─
+// ── Contact form — AJAX submit to Netlify Forms ────────────────
 (function () {
-  const parts = ['\x61\x69\x6b\x61\x6d', '\x75\x6d\x69\x63\x68\x2e\x65\x64\x75'];
-  const addr = parts[0] + '@' + parts[1];
-  const link = document.getElementById('contact-email-link');
-  const display = document.getElementById('contact-email-display');
-  if (link)    { link.href = 'mailto:' + addr; }
-  if (display) { display.textContent = addr; }
+  const form   = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  if (!form || !status) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = form.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.className = 'form-status';
+    status.textContent = '';
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      });
+
+      if (!res.ok) throw new Error('Network error');
+
+      form.reset();
+      status.textContent = 'Sent — I\'ll get back to you soon.';
+      status.className = 'form-status form-status--ok visible';
+      btn.textContent = 'Send Message →';
+    } catch {
+      status.textContent = 'Something went wrong. Please try again.';
+      status.className = 'form-status form-status--err visible';
+      btn.textContent = 'Send Message →';
+    } finally {
+      btn.disabled = false;
+    }
+  });
 }());

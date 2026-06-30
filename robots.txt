@@ -1,7 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /assets/*.pdf
-
-# Block resume PDF from all crawlers
-User-agent: *
-Disallow: /assets/AikamSingh_Resume.pdf
+Disallow: /assets/Aikam_Resume.pdf
