@@ -15,40 +15,60 @@ const RESTRICTED_HTML = `<!DOCTYPE html>
   <meta name="robots" content="noindex, nofollow" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       min-height: 100dvh; display: flex; align-items: center; justify-content: center;
-      background: #0f1117; color: #e2e8f0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #F2F4F7; color: #141720;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
       padding: 24px; text-align: center;
     }
+
     .card {
-      max-width: 480px;
-      background: #1a1d27; border: 1px solid #2d3148;
+      max-width: 460px; width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #D2D8E0;
       border-radius: 16px; padding: 48px 40px;
+      box-shadow: 0 2px 20px rgba(0,0,0,.08);
     }
-    .initial {
+
+    .logo {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em;
+      color: #141720; margin-bottom: 32px;
+    }
+    .logo span { color: #2B6DC9; }
+
+    .avatar {
       width: 72px; height: 72px; border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      background: #E5E9EF; border: 2px solid #D2D8E0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; font-weight: 700; margin: 0 auto 24px;
-      color: #fff;
+      font-size: 1.8rem; font-weight: 700; margin: 0 auto 24px;
+      color: #2B6DC9; letter-spacing: -.02em;
     }
-    h1 { font-size: 1.5rem; margin-bottom: 12px; }
-    p  { color: #94a3b8; line-height: 1.7; margin-bottom: 0; }
+
+    h1 {
+      font-size: 1.45rem; font-weight: 700; letter-spacing: -.02em;
+      color: #141720; margin-bottom: 12px;
+    }
+
+    p { color: #6B7280; line-height: 1.7; font-size: .95rem; }
+
     .notice {
-      margin-top: 24px; padding: 16px;
-      background: rgba(99,102,241,.1); border-radius: 8px;
-      font-size: .875rem; color: #a5b4fc;
+      margin-top: 24px; padding: 14px 18px;
+      background: rgba(43,109,201,.07);
+      border: 1px solid rgba(43,109,201,.18);
+      border-radius: 10px;
+      font-size: .85rem; color: #205CB3; line-height: 1.6;
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="initial">A</div>
+    <div class="logo">Aikam<span>.</span></div>
+    <div class="avatar">A</div>
     <h1>Hi, I'm Aikam</h1>
-    <p>I'm a Computer Engineering student interested in embedded systems and hardware design.</p>
+    <p>Computer Engineering student at the University of Michigan, focused on embedded systems and hardware design.</p>
     <div class="notice">
-      Thank you for visiting. This portfolio is currently available only to visitors in the United States and Canada.
+      This portfolio is currently available only to visitors in the United States and Canada. Thank you for stopping by.
     </div>
   </div>
 </body>
