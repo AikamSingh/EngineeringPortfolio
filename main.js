@@ -2,7 +2,7 @@
 const root = document.documentElement;
 const themeBtn = document.getElementById('theme-toggle');
 
-const saved = localStorage.getItem('theme') || 'dark';
+const saved = localStorage.getItem('theme') || 'light';
 root.dataset.theme = saved;
 updateThemeIcon(saved);
 
