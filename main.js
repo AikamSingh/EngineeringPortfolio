@@ -69,3 +69,13 @@ document.querySelectorAll('.project-card, .timeline-item').forEach((el, i) => {
   el.classList.add('fade-in');
   fadeObserver.observe(el);
 });
+
+// ── Email obfuscation (assembled at runtime to defeat scrapers) ─
+(function () {
+  const parts = ['\x61\x69\x6b\x61\x6d', '\x75\x6d\x69\x63\x68\x2e\x65\x64\x75'];
+  const addr = parts[0] + '@' + parts[1];
+  const link = document.getElementById('contact-email-link');
+  const display = document.getElementById('contact-email-display');
+  if (link)    { link.href = 'mailto:' + addr; }
+  if (display) { display.textContent = addr; }
+}());

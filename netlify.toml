@@ -1,7 +1,36 @@
 
+# ── Edge Functions ─────────────────────────────────────────────────────────
+[[edge_functions]]
+  path = "/*"
+  function = "geo-gate"
+
+# ── Security Headers ───────────────────────────────────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
+    # CSP: allow self + Google Fonts; block frames; no inline scripts
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    # HSTS: 1 year, include subdomains, eligible for preload list
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    # Disable sensors, payment, and FLoC/Topics API
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-site"
+
+# ── Resume: block search-engine indexing ──────────────────────────────────
+[[headers]]
+  for = "/assets/*.pdf"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "no-store"
+
+# ── Redirects ─────────────────────────────────────────────────────────────
+# Force HTTPS (Netlify handles TLS termination, but this handles edge cases)
+[[redirects]]
+  from = "http://aikam.netlify.app/*"
+  to   = "https://aikam.netlify.app/:splat"
+  status = 301
+  force  = true
