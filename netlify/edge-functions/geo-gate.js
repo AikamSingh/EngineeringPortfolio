@@ -68,7 +68,7 @@ const RESTRICTED_HTML = `<!DOCTYPE html>
     <h1>Hi, I'm Aikam</h1>
     <p>Computer Engineering student at the University of Michigan, focused on embedded systems and hardware design.</p>
     <div class="notice">
-      This portfolio is currently available only to visitors in the United States and Canada. Thank you for stopping by.
+      This portfolio is currently unavailable. Thank you for stopping by.
     </div>
   </div>
 </body>
