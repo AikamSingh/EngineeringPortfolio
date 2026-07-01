@@ -48,11 +48,13 @@
     <div class="container">
       <div class="project-hero-text">
         <a href="../index.html#projects" class="back-link">← All Projects</a>
-        <div class="hero-tag">Race Critical · University of Michigan Solar Car</div>
+        <div class="hero-tag">University of Michigan Solar Car</div>
         <h1>Solar Car Steering Wheel</h1>
         <p class="lead">
-          The steering wheel is the only thing a solar car driver touches. It has to show the right data, take reliable
-          inputs, and never fail — across deserts, mountain passes, and 2,800+ miles of road.
+          The steering wheel is one of the most race critical systems of a solar car. It has to show the right data,
+          take reliable
+          inputs, and never fail. The 2026 steering wheel survived across deserts, mountain passes, and 2,800+ miles of
+          road.
         </p>
         <div class="meta-strip meta-strip--sep">
           <div class="meta-item">
@@ -61,7 +63,7 @@
           </div>
           <div class="meta-item">
             <span>Tools</span>
-            <strong>Altium, STM32Cube IDE, C</strong>
+            <strong>Altium, STM32Cube IDE, C, Siemens</strong>
           </div>
           <div class="meta-item">
             <span>Status</span>
@@ -89,38 +91,41 @@
           <div class="section-block" id="problem">
             <h2>The Problem</h2>
             <p>
-              Michigan Solar Car competes in multi-day events — the big one is the World Solar Challenge across the
-              Australian outback. The steering wheel carries all the driver inputs and displays the telemetry the driver
-              needs to make real-time decisions. If it fails, the car stops.
+              Michigan Solar Car competes in the Bridgestone World Solar Challenge across the
+              Australian outback every odd year. The steering wheel carries all the driver inputs and displays the
+              telemetry the driver
+              needs to make real-time decisions. If it fails, the race could be jeopardized.
             </p>
             <p>
-              The 2025 wheel had a few known problems going into Solar Trek 2026. Push-to-talk had persistent noise
-              that made radio communication frustrating. The OLED was hard to read in direct sunlight. And the PCB
-              didn't fit cleanly into the enclosure — assembly was a pain, and the mechanical team had to work around
-              it. None of these were catastrophic, but they added up. The team wanted a cleaner design before
-              the next long trip.
+              The 2025 wheel used in WSC25 had a few known problems going into Solar Trek 2026. Push-to-talk had
+              persistent noise
+              that made radio communication frustrating and interfered with the CANBus. The LCD character display had a
+              cluttered UI. And the PCB
+              buttons and switches weren't panel mounted. None of these were catastrophic, but they added up. The team
+              wanted a cleaner design before
+              the next solar car endeavor.
             </p>
           </div>
 
           <!-- Requirements -->
           <div class="section-block" id="requirements">
             <h2>Requirements</h2>
-            <p>Before touching Altium, I mapped out the hard and soft requirements for the system:</p>
+            <p>Before starting the redesign, I mapped out the requirements for the system:</p>
             <ul class="spec-list">
               <li><span>CAN bus communication</span><span>Required — all vehicle data</span></li>
-              <li><span>Display</span><span>OLED graphical (2026), targeting LCD (2027)</span></li>
+              <li><span>Display</span><span>Character display (2025), OLED graphical (2026)</span></li>
               <li><span>Push-to-talk</span><span>Low-noise hardware implementation</span></li>
               <li><span>Torque / regen paddles</span><span>Analog input to motor controller</span></li>
-              <li><span>Panel-mounted hardware</span><span>Dust ingress reduction</span></li>
-              <li><span>Power source</span><span>Vehicle battery energy storage</span></li>
+              <li><span>Panel-mounted hardware</span><span>Increase reliability</span></li>
               <li><span>Environmental</span><span>Survive Australian outback conditions</span></li>
-              <li><span>Always-visible telemetry</span><span>Speed, signals, hazard, battery</span></li>
+              <li><span>Reliable telemetry</span><span>Speed, signals, hazard, battery</span></li>
             </ul>
 
             <div class="image-block">
               <figure>
                 <img src="../assets/steering_wheel_on_car.JPG" alt="Steering wheel installed in solar car cockpit" />
-                <figcaption>Fig 1. Installed in the cockpit — the wheel connects to the column via a quick-release, which also carries power and the CAN harness.</figcaption>
+                <figcaption>Fig 1. Installed in the cockpit — the wheel connects to the column via a quick-release,
+                  which also carries power and the CAN harness.</figcaption>
               </figure>
             </div>
           </div>
@@ -130,18 +135,19 @@
             <h2>Design Process</h2>
             <p>
               I started with the schematic in Altium, using the 2025 design as a reference for what to keep and what
-              to change. The MCU choice was easy — the existing board used an STM32, so I stayed with that family.
-              Switching would have meant rewriting the entire firmware stack for no real benefit.
+              to change.
             </p>
             <p>
-              For the CAN bus transceiver, I chose one compatible with what the rest of the vehicle already used.
-              That mattered for testing — I could validate CAN communication with the motor controller early, without
-              worrying about signal-level mismatches or termination differences.
+              A major change was to the screen. We switched from a character display to a graphical OLED display that
+              used 4-Wire SPI. Implementing
+              this change required understanding both the hardware and software requirements, including writing a new
+              screen driver and rerouting
+              the traces in Altium.
             </p>
             <p>
-              The steering wheel is powered off the vehicle battery, so I added filtering and protection on the input
-              rail. The battery voltage can spike when large loads switch on the vehicle's power distribution board,
-              and the last thing I wanted was the steering wheel browning out mid-race.
+              Another major change was the buttons and switches. The team needed a more cost efficient manufacturer, so
+              I researched and implemented new hardware onto the PCB layout. I also ensured that the buttons and
+              switches would be panel mounted in the final assembly.
             </p>
 
             <div class="image-block">
@@ -152,19 +158,15 @@
             </div>
 
             <p>
-              For layout, I set up a solid ground plane early. The board mixes analog and digital signals — PTT
-              audio, button inputs, and CAN bus — so I kept the analog traces short and separated from the switching
-              signals. It's not a high-frequency board, but sloppy routing had caused PTT issues before.
+              The schematic above shows the components for the steering wheel PCB, organized by category. An improvement
+              to the
+              2025 design was organizing the Altium so that future team members who worked on the project would
+              understand what the
+              functions of the different components.
             </p>
             <p>
-              I coordinated with the mechanical team in Siemens NX before finalizing the layout. One of the 2025
-              board's biggest problems was that connector and button positions didn't line up with the enclosure
-              cutouts. This time I got the exact hole locations and mounting points from the CAD model and matched
-              the layout to them before sending to fab.
-            </p>
-            <p>
-              All the buttons are panel-mounted — threaded hardware that screws directly into the enclosure, which
-              keeps mechanical stress off the PCB pads. The OLED connects over SPI. The CAN transceiver runs to a
+              All the buttons are panel-mounted, which keeps mechanical stress off the PCB pads. The OLED connects over
+              SPI. The CAN transceiver runs to a
               dedicated connector that mates with the vehicle's harness.
             </p>
 
@@ -184,22 +186,16 @@
           <div class="section-block" id="firmware">
             <h2>Firmware</h2>
             <p>
-              The firmware runs on FreeRTOS. I needed two reliable loops running independently — one for the
-              display update, one for CAN receive — and a bare-metal superloop wasn't going to cut it. If the
-              display took too long, the CAN receive handler would slip. With RTOS I could give the CAN task
-              higher priority and let it preempt the display refresh if a message came in.
+              A major undertaking with redesigning the steering wheel was understanding and editing the existing
+              codebase.
+
+              The firmware runs on FreeRTOS that manages driver input, CAN messages, and screen updates.
             </p>
-            <div class="callout">
-              <p><strong>Decision:</strong> I rewrote the firmware from scratch instead of patching the 2025 code.
-                The old firmware had accumulated workarounds that made the task timing hard to reason about. Starting
-                clean with clearly scoped RTOS tasks took roughly the same amount of time and was far easier to
-                debug during bring-up.</p>
-            </div>
             <p>
-              The CAN bus carries all the vehicle state. The steering wheel receives speed, battery level, and turn
-              signal state from the rest of the car. It sends back driver inputs — torque request, regen braking
-              level, push-to-talk state, and hazard toggle. Message IDs are defined in the team's shared DBC file
-              so every node on the bus agrees on the signal format.
+              The CAN bus carries all the vehicle states. The steering wheel receives speed, battery level, and turn
+              signal state from the rest of the car. It sends back driver inputs such as torque request and regen
+              braking level. Message IDs are defined in the team's shared DBC file so every node on the bus agrees on the signal
+              format.
             </p>
           </div>
 
@@ -209,21 +205,22 @@
 
             <div class="challenge-card">
               <h4>PTT Noise</h4>
-              <p>The push-to-talk issue was a ground loop. The PTT audio path shared a ground return with the CAN
-                transceiver, and switching activity on the CAN side was coupling noise into the audio line. I traced
-                it with an oscilloscope — the noise spike was clearly correlated with CAN traffic. The fix was
-                separating the ground returns and adding a small ferrite bead on the audio line. It wasn't obvious
-                until I saw the scope trace side-by-side with the CAN bus activity.</p>
+              <p>The 2025 steering wheel had an issue with the PTT causing noise on the CAN bus, leading to thousands of CAN error frames. 
+                For the 2026 steering wheel, I isolated the PTT onto its own plane and added via-stitching to the traces to reduce the noise caused
+                on neighboring traces. I also moved the PTT button closer to the connector on the PCB to reduce the length the signal has to travel.
+              </p>
+              <p>Using an oscilloscope, we were able to confirm that the changes implemented successfully reduced noise on the bus and led to a clearer 
+                signal from the driver.
+              </p>
             </div>
 
             <div class="challenge-card">
-              <h4>Mechanical Assembly Mismatch</h4>
-              <p>The 2025 board's connector placement didn't match the enclosure cutouts — a few millimeters off on
-                one axis. Assembly required filing the cutout slightly, which put sideways stress on the connector
-                pads. For 2026 I coordinated with the mechanical team earlier and verified every panel-mount
-                position against the CAD model before finalizing the layout. The fit was noticeably better,
-                though not perfect. The lesson was that shared drawings aren't good enough — you need to check
-                against the actual CAD.</p>
+              <h4>Mechanical Assembly</h4>
+              <p>The 2025 board's connector placement didn't match the enclosure cutouts precisely. Thus the wheel used in the 2025 race did
+                not have panel mounted buttons, increasing the unreliability of the system. For 2026 I coordinated with the mechanical team earlier and 
+                verified every panel-mount position against the CAD model before finalizing the layout. The fit was noticeably better,
+                though not perfect. The lesson was that shared drawings aren't good enough. You need to check against the actual CAD. </p>
+              <p>I will improve the panel mounting further in the 2027 redesign of the steering wheel.</p>
             </div>
 
             <div class="challenge-card">
