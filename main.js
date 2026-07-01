@@ -1,23 +1,3 @@
-// ── Theme ──────────────────────────────────────────────────────
-const root = document.documentElement;
-const themeBtn = document.getElementById('theme-toggle');
-
-const saved = localStorage.getItem('theme') || 'light';
-root.dataset.theme = saved;
-updateThemeIcon(saved);
-
-themeBtn.addEventListener('click', () => {
-  const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-  root.dataset.theme = next;
-  localStorage.setItem('theme', next);
-  updateThemeIcon(next);
-});
-
-function updateThemeIcon(theme) {
-  themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-  themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-}
-
 // ── Cursor glow (pointer: fine only) ──────────────────────────
 if (window.matchMedia('(pointer: fine)').matches &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
