@@ -818,3 +818,8 @@ footer p { font-size: .85rem; }
   transition: opacity 0.15s;
 }
 .lightbox-close:hover { opacity: 1; }
+
+/* ── Utility classes (replace inline styles for CSP compliance) ── */
+.hero-single-col { grid-template-columns: 1fr; }
+.hero-text-centered { text-align: center; align-items: center; }
+.sidebar-tags-spaced { margin: 1rem 0 1.5rem; }

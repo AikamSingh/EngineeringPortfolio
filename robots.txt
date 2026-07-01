@@ -1,3 +1,2 @@
 User-agent: *
 Allow: /
-Disallow: /assets/Aikam_Resume.pdf

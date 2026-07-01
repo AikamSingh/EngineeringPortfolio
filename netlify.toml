@@ -20,13 +20,6 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-site"
 
-# ── Resume: block search-engine indexing ──────────────────────────────────
-[[headers]]
-  for = "/assets/*.pdf"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow, noarchive"
-    Cache-Control = "no-store"
-
 # ── Redirects ─────────────────────────────────────────────────────────────
 # Force HTTPS (Netlify handles TLS termination, but this handles edge cases)
 [[redirects]]
