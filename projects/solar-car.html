@@ -194,7 +194,8 @@
             <p>
               The CAN bus carries all the vehicle states. The steering wheel receives speed, battery level, and turn
               signal state from the rest of the car. It sends back driver inputs such as torque request and regen
-              braking level. Message IDs are defined in the team's shared DBC file so every node on the bus agrees on the signal
+              braking level. Message IDs are defined in the team's shared DBC file so every node on the bus agrees on
+              the signal
               format.
             </p>
           </div>
@@ -205,31 +206,41 @@
 
             <div class="challenge-card">
               <h4>PTT Noise</h4>
-              <p>The 2025 steering wheel had an issue with the PTT causing noise on the CAN bus, leading to thousands of CAN error frames. 
-                For the 2026 steering wheel, I isolated the PTT onto its own plane and added via-stitching to the traces to reduce the noise caused
-                on neighboring traces. I also moved the PTT button closer to the connector on the PCB to reduce the length the signal has to travel.
+              <p>The 2025 steering wheel had an issue with the PTT causing noise on the CAN bus, leading to thousands of
+                CAN error frames.
+                For the 2026 steering wheel, I isolated the PTT onto its own plane and added via-stitching to the traces
+                to reduce the noise caused
+                on neighboring traces. I also moved the PTT button closer to the connector on the PCB to reduce the
+                length the signal has to travel.
               </p>
-              <p>Using an oscilloscope, we were able to confirm that the changes implemented successfully reduced noise on the bus and led to a clearer 
+              <p>Using an oscilloscope, we were able to confirm that the changes implemented successfully reduced noise
+                on the bus and led to a clearer
                 signal from the driver.
               </p>
             </div>
 
             <div class="challenge-card">
               <h4>Mechanical Assembly</h4>
-              <p>The 2025 board's connector placement didn't match the enclosure cutouts precisely. Thus the wheel used in the 2025 race did
-                not have panel mounted buttons, increasing the unreliability of the system. For 2026 I coordinated with the mechanical team earlier and 
-                verified every panel-mount position against the CAD model before finalizing the layout. The fit was noticeably better,
-                though not perfect. The lesson was that shared drawings aren't good enough. You need to check against the actual CAD. </p>
+              <p>The 2025 board's connector placement didn't match the enclosure cutouts precisely. Thus the wheel used
+                in the 2025 race did
+                not have panel mounted buttons, increasing the unreliability of the system. For 2026 I coordinated with
+                the mechanical team earlier and
+                verified every panel-mount position against the CAD model before finalizing the layout. The fit was
+                noticeably better,
+                though not perfect. The lesson was that shared drawings aren't good enough. You need to check against
+                the actual CAD. </p>
               <p>I will improve the panel mounting further in the 2027 redesign of the steering wheel.</p>
             </div>
 
             <div class="challenge-card">
               <h4>Screen Readability in Direct Sunlight</h4>
-              <p>OLEDs are emissive — they generate their own light. In direct sunlight, ambient light overwhelms
-                the display. I tried cranking brightness to maximum and inverting the display in software (white
-                background, black text), but neither helped enough. The 2027 redesign is switching to a character
-                LCD. Reflective displays use ambient light instead of fighting it, which makes them actually easier
-                to read outdoors. It's counterintuitive until you understand the physics.</p>
+              <p>An issue encountered during the 2026 Solar Trek was the reflection on the OLED display. I tried
+                cranking brightness to maximum and
+                contrasted the white letters on a black background, but neither helped enough. The 2027 redesign is
+                switching back to a character LCD. This time, though, we want to use a 4-line display to improve the UI
+                further. The character display
+                screen driver will also be more
+                straight forward to implement </p>
             </div>
           </div>
 
@@ -237,7 +248,7 @@
           <div class="section-block" id="results">
             <h2>Results</h2>
             <p>
-              The 2026 steering wheel was deployed on Solar Trek — a 2,000+ mile cross-country drive from Michigan to
+              The 2026 steering wheel was deployed on Solar Trek — a 2,800+ mile cross-country drive from Michigan to
               California. I was part of the race crew, driving the car and maintaining the electrical systems on the
               road.
             </p>
@@ -256,13 +267,13 @@
               </div>
               <div class="result-stat">
                 <span class="number">Panel Mounted</span>
-                <p>Panel mounted hardware — dust ingress minimized</p>
+                <p>Panel mounted hardware</p>
               </div>
             </div>
             <p class="results-note">
               The board ran without steering wheel electrical failures during the trek. PTT noise was noticeably
-              reduced — drivers stopped complaining about radio chatter. The telemetry layout got positive feedback
-              from the other drivers, particularly the battery readout placement. A few things still need work for
+              reduced as drivers stopped complaining about radio chatter. The telemetry layout got positive feedback
+              from the other drivers. A few things still need work for
               2027, mainly the OLED readability in afternoon sun.
             </p>
 
@@ -282,25 +293,20 @@
             </p>
             <ul class="spec-list">
               <li><span>Display</span><span>OLED → 4-line LCD character display</span></li>
-              <li><span>Screen placement</span><span>Evaluating on-wheel vs. column-mounted</span></li>
+              <li><span>Screen placement</span><span>Evaluating on-wheel vs. chassis-mounted</span></li>
               <li><span>Column detection sensor</span><span>IMU or shorted-connection approach</span></li>
               <li><span>Button hardware</span><span>Taller panel-mount buttons, new manufacturer</span></li>
               <li><span>PCB integration</span><span>Altium into Siemens NX early in cycle</span></li>
               <li><span>Regen paddles</span><span>Evaluating repositioning for ergonomics</span></li>
             </ul>
-            <div class="callout">
-              <p><strong>Safety requirement:</strong> The column-detection sensor is race-critical — if the steering
-                wheel is disconnected from the column, torque commands must be disabled to prevent the car from moving
-                uncontrolled. The sensor needs to be reliable and overridable for diagnostics.</p>
-            </div>
           </div>
 
           <!-- Tools & Validation -->
           <div class="section-block" id="tools">
             <h2>Tools &amp; Validation</h2>
             <p>
-              The hardware side was designed entirely in Altium Designer — schematic capture, PCB layout, and DRC.
-              Mechanical coordination happened in Siemens NX, sharing reference geometry with the enclosure team.
+              The hardware side was designed entirely in Altium Designer through schematic capture, PCB layout, and DRC.
+              Mechanical coordination happened in Siemens NX.
               Firmware was written in C using FreeRTOS, developed in STM32CubeIDE.
             </p>
             <div class="sidebar-tags" style="margin: 1rem 0 1.5rem;">
@@ -313,8 +319,8 @@
             </div>
             <p>
               Before the board left the bench I validated signal integrity on the CAN lines with an oscilloscope
-              and confirmed message traffic with a logic analyzer. The real validation was Solar Trek itself —
-              2,800+ miles of driving is a better stress test than anything I could have set up in a lab.
+              and confirmed message traffic with a logic analyzer. The real validation was Solar Trek itself,
+              2,800+ miles of driving is a better stress test than anything I could have set up in the workspace.
             </p>
           </div>
 
@@ -324,19 +330,24 @@
             <p>
               The biggest thing I'd do differently: get the Altium layout into Siemens NX earlier. I thought shared
               dimension drawings were enough for mechanical coordination, but drawings don't catch everything. When
-              the board arrived, two connector positions were off. Not a showstopper, but it cost time during
+              the board arrived, there were some hardware to enclosure integration issues. A switch and a turn signal
+              LED were not positioned where intended. were off. Not a showstopper, but it cost time during
               assembly that a CAD check would have caught.
             </p>
             <p>
-              I also underestimated firmware bring-up time. The hardware came up fast — I had the OLED displaying
-              data and CAN traffic flowing within a day. But the CAN message timing had edge cases that took a
-              while to track down. A driver command could be lost if it arrived during a display refresh. Going
+              I also underestimated firmware bring-up time. The OLED graphical display took unanticipated optimization
+              to increase the FPS
+              to an acceptable amount. A driver command could be lost if it arrived during a display refresh. Going
               forward I'd write the test harness and timing-stress tests before the board arrives, not after.
             </p>
             <p>
-              The OLED choice is the one I'd reconsider most. I knew reflective LCDs were better for outdoor
-              readability — I just didn't push back hard enough on the decision before we committed. That's now
-              a 2027 fix instead of a 2026 feature.
+              The OLED choice is the one I'd reconsider most. I wanted to migrate to an OLED in the first place because
+              I thought a graphical display
+              would provide flexibility with the placement of the metrics, but it proved to be difficult to optimize and
+              had the unintended consequence of
+              increasing glare from the sun. A character display would also have lower power consumption, which is
+              crucial to think about on the WSC stage, as microWatts
+              can turn into race minutes when extrapolated.
             </p>
           </div>
 
